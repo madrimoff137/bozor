@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="uz">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f5f5f2">
+	<meta name="description" content="Yangi va ishlatilgan mototsikllar. O'zingizga mos mototsiklni toping.">
+	<title>MOTO MARKET — Mototsikl bozori</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		:root{--ink:#1b211f;--muted:#747b77;--paper:#f5f5f2;--white:#fff;--line:#e4e6e2;--red:#e94d30;--green:#246b50;--display:'Barlow Condensed',Impact,sans-serif;--body:'DM Sans',Arial,sans-serif}
+		*{box-sizing:border-box}
+		body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:14px}
+		button,input,select{font:inherit}
+		button{cursor:pointer}
+		.shell{max-width:1440px;margin:auto;padding:0 54px}
+		.topbar{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:24px}
+		.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;letter-spacing:0}
+		.brand-mark{height:34px;width:34px;background:var(--red);color:white;display:grid;place-items:center;font-family:var(--display);font-size:20px;font-weight:700;transform:skew(-7deg)}
+		.brand-name{font-size:15px;letter-spacing:0;font-weight:700}.brand-name span{color:var(--red)}
+		.nav{display:flex;align-items:center;gap:30px;margin-left:auto;margin-right:16px}
+		.nav a{color:#5c625e;text-decoration:none;font-size:13px;font-weight:600}.nav a:hover,.nav a.active{color:var(--red)}
+		.sell-btn{background:var(--ink);color:white;border:0;padding:12px 18px;font-size:12px;font-weight:700;letter-spacing:.2px;display:flex;align-items:center;gap:9px}
+		.sell-btn:hover{background:var(--red)}
+		.sell-btn svg{width:16px;height:16px}
+		.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;padding:38px 0 30px}
+		.eyebrow{display:flex;align-items:center;gap:9px;color:var(--red);font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+		.eyebrow:before{content:"";width:20px;height:2px;background:var(--red)}
+		h1{font-family:var(--display);font-size:clamp(42px,5vw,66px);line-height:.91;letter-spacing:0;margin:14px 0 12px;text-transform:uppercase;font-weight:700}
+		.intro-copy{color:var(--muted);margin:0;font-size:13px}
+		.feature{height:164px;position:relative;overflow:hidden;background:#202927}
+		.feature img{height:100%;width:100%;object-fit:cover;object-position:center 54%;opacity:.75}
+		.feature:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,25,22,.75),transparent 72%)}
+		.feature-copy{position:absolute;z-index:1;left:22px;top:22px;color:white}
+		.feature-copy small{font-size:9px;font-weight:700;color:#ffad9c;letter-spacing:1.3px;text-transform:uppercase}
+		.feature-copy strong{display:block;font-family:var(--display);font-size:30px;line-height:1.02;text-transform:uppercase;margin-top:8px;max-width:220px}
+		.feature-arrow{position:absolute;right:18px;bottom:18px;z-index:2;color:white;font-size:22px}
+		.searchbar{display:flex;align-items:center;background:var(--white);border:1px solid var(--line);height:54px;margin:4px 0 24px}
+		.search-icon{width:52px;display:grid;place-items:center;color:#818883;flex:none}
+		.search-icon svg{width:18px;height:18px}
+		.searchbar input{border:0;outline:0;min-width:0;flex:1;color:var(--ink);font-size:13px;background:transparent}
+		.searchbar input::placeholder{color:#989e99}
+		.searchbar button{height:38px;margin:0 8px;padding:0 18px;background:var(--red);color:white;border:0;font-size:12px;font-weight:700}
+		.toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--line);padding-bottom:14px}
+		.filters{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+		.filter{border:1px solid transparent;color:#707772;background:transparent;padding:8px 12px;font-size:11px;font-weight:600}
+		.filter:hover{color:var(--ink)}.filter.selected{background:var(--ink);color:white}
+		.sort-wrap{display:flex;align-items:center;gap:9px;white-space:nowrap;color:var(--muted);font-size:11px}
+		.sort-wrap select{border:0;background:transparent;color:var(--ink);font-size:11px;font-weight:700;outline:none;cursor:pointer}
+		.listing-head{display:flex;justify-content:space-between;align-items:center;padding:22px 0 14px}
+		.listing-head h2{font-family:var(--display);font-size:25px;line-height:1;margin:0;text-transform:uppercase}
+		.result-count{color:var(--muted);font-size:11px}
+		.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 18px;padding-bottom:58px}
+		.bike-card{background:var(--white);min-width:0;position:relative;animation:appear .32s ease both}
+		@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+		.bike-image{height:210px;position:relative;background:#e6e8e4;overflow:hidden}
+		.bike-image img{height:100%;width:100%;object-fit:cover;transition:transform .4s ease}
+		.bike-card:hover .bike-image img{transform:scale(1.035)}
+		.condition{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.94);padding:6px 8px;font-size:9px;text-transform:uppercase;font-weight:700;letter-spacing:.5px}
+		.favorite{position:absolute;right:11px;top:10px;width:34px;height:34px;display:grid;place-items:center;background:rgba(255,255,255,.94);border:0;color:#5f6661}
+		.favorite svg{width:17px;height:17px}.favorite.on{color:var(--red)}.favorite.on svg{fill:var(--red)}
+		.bike-info{padding:15px 16px 16px}
+		.bike-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+		.bike-title{font-family:var(--display);font-size:23px;line-height:1;text-transform:uppercase;margin:0;font-weight:700}
+		.year{font-size:10px;color:var(--muted);padding-top:4px;white-space:nowrap}
+		.specs{display:flex;gap:14px;margin:12px 0 15px;color:#6c746f;font-size:10px}
+		.spec{display:flex;align-items:center;gap:5px}.spec svg{width:13px;height:13px;color:#919893}
+		.card-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eff0ed;padding-top:13px;gap:8px}
+		.price{font-weight:700;font-size:15px;white-space:nowrap}.price span{font-size:10px;color:var(--muted);font-weight:500}
+		.details-btn{border:0;background:transparent;color:var(--red);font-size:10px;font-weight:700;padding:7px 0 7px 8px}
+		.details-btn:hover{color:#ae2e18}
+		.empty{grid-column:1/-1;padding:55px 15px;text-align:center;color:var(--muted);background:white}
+		.empty strong{display:block;color:var(--ink);font-family:var(--display);font-size:25px;text-transform:uppercase;margin-bottom:6px}
+		footer{border-top:1px solid var(--line);padding:20px 0 26px;color:var(--muted);font-size:10px;display:flex;justify-content:space-between;gap:15px}
+		.modal-backdrop{position:fixed;inset:0;background:rgba(13,19,16,.65);z-index:5;display:none;align-items:center;justify-content:center;padding:20px}
+		.modal-backdrop.open{display:flex}
+		.modal{width:min(760px,100%);background:var(--paper);display:grid;grid-template-columns:1fr 1fr;position:relative}
+		.modal-image{width:100%;height:100%;min-height:320px;object-fit:cover;background:#e4e6e2}
+		.modal-content{padding:34px 28px;align-self:center}
+		.modal-close{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;background:white;font-size:20px;z-index:1}
+		.modal-content h2{font-family:var(--display);font-size:34px;text-transform:uppercase;line-height:.98;margin:10px 0}
+		.modal-content p{color:var(--muted);font-size:12px;line-height:1.65}
+		.modal-specs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;padding:15px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:11px}
+		.modal-specs span{color:var(--muted)}.modal-specs strong{display:block;margin-top:3px}
+		.contact-btn{display:block;text-align:center;text-decoration:none;background:var(--red);color:white;padding:13px;font-size:12px;font-weight:700}
+		@media(max-width:900px){.shell{padding:0 28px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intro{grid-template-columns:1fr .8fr;gap:22px}.bike-image{height:190px}}
+		@media(max-width:620px){.shell{padding:0 17px}.topbar{height:65px}.nav{display:none}.sell-btn{padding:10px 12px}.intro{grid-template-columns:1fr;padding:30px 0 20px;gap:20px}.intro h1{font-size:50px}.feature{height:142px}.searchbar{height:50px}.searchbar button{padding:0 12px}.toolbar{align-items:flex-start;flex-direction:column;gap:11px}.filters{gap:2px}.filter{padding:7px 9px}.sort-wrap{align-self:flex-end}.grid{grid-template-columns:1fr 1fr;gap:12px}.bike-image{height:clamp(125px,38vw,205px)}.bike-info{padding:12px 11px}.bike-title{font-size:19px}.specs{gap:8px;margin:10px 0 12px;font-size:9px}.spec{gap:3px}.price{font-size:13px}.price span{font-size:9px}.details-btn{font-size:9px}.listing-head{padding-top:19px}.listing-head h2{font-size:23px}.modal{grid-template-columns:1fr;max-height:90vh;overflow:auto}.modal-image{height:210px;min-height:0}.modal-content{padding:23px}.modal-close{position:fixed;right:max(24px,calc((100vw - 760px)/2 + 12px))}footer{font-size:9px}}
+		@media(max-width:370px){.grid{grid-template-columns:1fr}.bike-image{height:200px}.brand-name{font-size:13px}.sell-btn{font-size:10px}.intro h1{font-size:44px}}
+	</style>
+</head>
+<body>
+	<header class="shell topbar">
+		<a class="brand" href="#top" aria-label="MOTO MARKET bosh sahifa"><span class="brand-mark">M</span><span class="brand-name">MOTO<span>.</span>MARKET</span></a>
+		<nav class="nav" aria-label="Asosiy navigatsiya"><a href="#catalog" class="active">Mototsikllar</a><a href="#catalog" data-filter-link="Yangi">Yangi</a><a href="#catalog" data-favorites-link>Sevimlilar</a></nav>
+		<a class="sell-btn" href="tel:+998901234567" aria-label="Sotuvchi bilan bog'lanish">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.2 18a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 3.18 2 2 0 0 1 4.07 1h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.11L8.05 8.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7A2 2 0 0 1 22 16.92z"/></svg>
+			E'LON BERISH
+		</a>
+	</header>
+	<main class="shell" id="top">
+		<section class="intro" aria-labelledby="page-title">
+			<div><div class="eyebrow">Ikki g'ildirak. Katta erkinlik.</div><h1 id="page-title">Yo'lingizni<br>tanlang.</h1><p class="intro-copy">O'zbekistondagi yangi va ishlatilgan mototsikllar bir joyda.</p></div>
+			<a class="feature" href="#catalog" aria-label="Mototsikllar katalogini ko'rish"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1000&q=85" alt="Yo'lda ketayotgan mototsikl" fetchpriority="high"><span class="feature-copy"><small>Bu haftaning tanlovi</small><strong>Shahar sizniki.</strong></span><span class="feature-arrow" aria-hidden="true">↗</span></a>
+		</section>
+		<section id="catalog" aria-label="Mototsikllarni qidirish va tanlash">
+			<form class="searchbar" id="search-form" role="search"><span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4 4"/></svg></span><input id="search-input" type="search" placeholder="Marka yoki modelni qidiring..." aria-label="Marka yoki modelni qidiring"><button type="submit">QIDIRISH</button></form>
+			<div class="toolbar"><div class="filters" role="group" aria-label="Mototsikl turini tanlang"><button class="filter selected" data-category="Barchasi">Barchasi</button><button class="filter" data-category="Sport">Sport</button><button class="filter" data-category="Street">Street</button><button class="filter" data-category="Touring">Touring</button><button class="filter" data-category="Enduro">Enduro</button></div><label class="sort-wrap">Saralash <select id="sort-select" aria-label="Narx bo'yicha saralash"><option value="newest">Yangilari</option><option value="low">Narx: arzondan</option><option value="high">Narx: qimmatdan</option></select></label></div>
+			<div class="listing-head"><h2 id="listing-title">Sotuvdagi mototsikllar</h2><span class="result-count" id="result-count" aria-live="polite"></span></div>
+			<div class="grid" id="bike-grid"></div>
+		</section>
+	</main>
+	<footer class="shell"><span>© 2026 MOTO.MARKET</span><span>Mototsiklingizni toping. Yo'lga chiqing.</span></footer>
+	<div class="modal-backdrop" id="modal-backdrop" role="presentation"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" id="modal-close" aria-label="Yopish">×</button><img class="modal-image" id="modal-image" alt=""><div class="modal-content"><div class="eyebrow" id="modal-category"></div><h2 id="modal-title"></h2><div class="price" id="modal-price"></div><p id="modal-description"></p><div class="modal-specs" id="modal-specs"></div><a class="contact-btn" href="tel:+998901234567">SOTUVCHI BILAN BOG'LANISH</a></div></section></div>
+	<script>
+		const bikes = [
+			{id:1,name:'Yamaha MT-07',year:2023,category:'Street',condition:'Yangi',price:89500000,cc:689,mileage:0,color:'Ko\'k',image:'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=82',description:'Shahar va uzoq yo\'llar uchun qulay, yengil boshqariladigan mototsikl. Hujjatlari to\'liq, holati a\'lo.'},
+			{id:2,name:'Kawasaki Ninja 400',year:2022,category:'Sport',condition:'Ishlatilgan',price:72800000,cc:399,mileage:8400,color:'Yashil',image:'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=82',description:'Sport uslubidagi ixcham va chaqqon model. Texnik ko\'rikdan o\'tgan, minishga tayyor.'},
+			{id:3,name:'Honda CB500X',year:2024,category:'Touring',condition:'Yangi',price:112000000,cc:471,mileage:0,color:'Qora',image:'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=82&sat=-35',description:'Safar va kundalik qatnov uchun universal tanlov. Yangi, rasmiy hujjatlari bilan.'},
+			{id:4,name:'BMW G 310 GS',year:2021,category:'Enduro',condition:'Ishlatilgan',price:68900000,cc:313,mileage:12600,color:'Oq',image:'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=82&fit=crop&sat=-65',description:'Yengil enduro, shahar va notekis yo\'llarda birdek ishonchli. Servis tarixi mavjud.'},
+			{id:5,name:'KTM Duke 390',year:2023,category:'Street',condition:'Yangi',price:76500000,cc:373,mileage:0,color:'To\'q sariq',image:'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=900&q=82&sat=25',description:'Kuchli xarakter va aniq boshqaruv. Yangi mototsikl, kafolat bilan.'},
+			{id:6,name:'Suzuki GSX-R750',year:2020,category:'Sport',condition:'Ishlatilgan',price:98000000,cc:750,mileage:15300,color:'Qizil',image:'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=900&q=82&hue=330',description:'Sport klassikasining kuchli vakili. Ehtiyotkor ishlatilgan, holati yaxshi.'}
+		];
+		const grid=document.querySelector('#bike-grid');
+		const searchInput=document.querySelector('#search-input');
+		const sortSelect=document.querySelector('#sort-select');
+		const favorites=new Set(JSON.parse(localStorage.getItem('moto-favorites')||'[]'));
+		let activeCategory='Barchasi';
+		let favoritesOnly=false;
+		const money=value=>new Intl.NumberFormat('uz-UZ').format(value)+' so\'m';
+		const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>';
+		function render(){
+			const query=searchInput.value.trim().toLocaleLowerCase('uz');
+			let results=bikes.filter(bike=>(activeCategory==='Barchasi'||bike.category===activeCategory)&&(!favoritesOnly||favorites.has(bike.id))&&(`${bike.name} ${bike.category} ${bike.condition}`.toLocaleLowerCase('uz').includes(query)));
+			if(sortSelect.value==='low')results.sort((a,b)=>a.price-b.price);
+			if(sortSelect.value==='high')results.sort((a,b)=>b.price-a.price);
+			document.querySelector('#result-count').textContent=`${results.length} ta e'lon`;
+			document.querySelector('#listing-title').textContent=favoritesOnly?'Sevimli mototsikllar':'Sotuvdagi mototsikllar';
+			grid.innerHTML=results.length?results.map((bike,index)=>`<article class="bike-card" style="animation-delay:${index*35}ms"><div class="bike-image"><img src="${bike.image}" alt="${bike.name}" loading="lazy"><span class="condition">${bike.condition}</span><button class="favorite ${favorites.has(bike.id)?'on':''}" data-favorite="${bike.id}" aria-label="${favorites.has(bike.id)?'Sevimlilardan olib tashlash':'Sevimlilarga qo\'shish'}" aria-pressed="${favorites.has(bike.id)}">${heart}</button></div><div class="bike-info"><div class="bike-title-row"><h3 class="bike-title">${bike.name}</h3><span class="year">${bike.year}</span></div><div class="specs"><span class="spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M5 8h14M5 16h14"/></svg>${bike.cc} cc</span><span class="spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>${bike.mileage.toLocaleString('uz-UZ')} km</span></div><div class="card-bottom"><div class="price">${money(bike.price)}</div><button class="details-btn" data-details="${bike.id}">BATAFSIL ↗</button></div></div></article>`).join(''):'<div class="empty"><strong>Hozircha natija yo\'q</strong>Qidiruv yoki filtrni o\'zgartirib ko\'ring.</div>';
+		}
+		grid.addEventListener('click',event=>{
+			const favoriteButton=event.target.closest('[data-favorite]');
+			const detailButton=event.target.closest('[data-details]');
+			if(favoriteButton){const id=Number(favoriteButton.dataset.favorite);favorites.has(id)?favorites.delete(id):favorites.add(id);localStorage.setItem('moto-favorites',JSON.stringify([...favorites]));render();}
+			if(detailButton)openDetails(Number(detailButton.dataset.details));
+		});
+		document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{activeCategory=button.dataset.category;document.querySelectorAll('.filter').forEach(item=>item.classList.toggle('selected',item===button));render();}));
+		searchInput.addEventListener('input',render);
+		document.querySelector('#search-form').addEventListener('submit',event=>{event.preventDefault();render();});
+		sortSelect.addEventListener('change',render);
+		document.querySelector('[data-favorites-link]').addEventListener('click',event=>{event.preventDefault();favoritesOnly=!favoritesOnly;document.querySelector('[data-favorites-link]').classList.toggle('active',favoritesOnly);document.querySelectorAll('.nav a:not([data-favorites-link])').forEach(link=>link.classList.toggle('active',!favoritesOnly));render();document.querySelector('#catalog').scrollIntoView({behavior:'smooth'});});
+		document.querySelector('[data-filter-link]').addEventListener('click',()=>{activeCategory='Barchasi';favoritesOnly=false;document.querySelectorAll('.filter').forEach(item=>item.classList.toggle('selected',item.dataset.category==='Barchasi'));render();});
+		const backdrop=document.querySelector('#modal-backdrop');
+		function openDetails(id){const bike=bikes.find(item=>item.id===id);document.querySelector('#modal-image').src=bike.image;document.querySelector('#modal-image').alt=bike.name;document.querySelector('#modal-category').textContent=`${bike.category} / ${bike.condition}`;document.querySelector('#modal-title').textContent=`${bike.name} ${bike.year}`;document.querySelector('#modal-price').textContent=money(bike.price);document.querySelector('#modal-description').textContent=bike.description;document.querySelector('#modal-specs').innerHTML=`<div><span>Dvigatel</span><strong>${bike.cc} cc</strong></div><div><span>Yurgan masofa</span><strong>${bike.mileage.toLocaleString('uz-UZ')} km</strong></div><div><span>Rangi</span><strong>${bike.color}</strong></div><div><span>Holati</span><strong>${bike.condition}</strong></div>`;backdrop.classList.add('open');document.body.style.overflow='hidden';document.querySelector('#modal-close').focus();}
+		function closeDetails(){backdrop.classList.remove('open');document.body.style.overflow='';}
+		document.querySelector('#modal-close').addEventListener('click',closeDetails);
+		backdrop.addEventListener('click',event=>{if(event.target===backdrop)closeDetails();});
+		document.addEventListener('keydown',event=>{if(event.key==='Escape')closeDetails();});
+		render();
+	</script>
+</body>
+</html>
